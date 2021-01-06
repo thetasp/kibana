@@ -37,7 +37,7 @@ project(TeamLevelProject {
     name = "Kibana"
 
     PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it, it) }
-    SANDBOX_BRANCHES.forEach { createKibanaSubProject("$it sandbox", it) }
+    SANDBOX_BRANCHES.forEach { createKibanaSubProject("$it / sandbox", it) }
 })
 
 fun TeamLevelProject.createKibanaSubProject(projectName: String, branch: String) {
@@ -70,8 +70,8 @@ fun createVcsRoot(projectId: String, projectName: String, branchName: String): G
     return GitVcsRoot {
         id("${projectId}_${branchName.replace('.', '_')}")
 
-        name = "$projectName ($branchName)"
-        url = "https://github.com/elastic/${projectName.toLowerCase()}.git"
+        name = "$projectName / ($branchName)"
+        url = "https://github.com/elastic/kibana.git"
         branch = "refs/heads/$branchName"
     }
 }
