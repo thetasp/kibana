@@ -41,11 +41,13 @@ project(TeamLevelProject {
 })
 
 fun TeamLevelProject.createKibanaSubProject(projectName: String, branch: String) {
+    val project = this
+
     subProject {
-        id("${this.id.toString()}_${branch.replace('.', '_')}")
+        id("${project.id.toString()}_${branch.replace('.', '_')}")
         name = projectName
 
-        val kotlinDslRoot = createVcsRoot(this.id.toString(), this.name, branch)
+        val kotlinDslRoot = createVcsRoot(project.id.toString(), this.name, branch)
         this.vcsRoot(kotlinDslRoot)
 
         features {
