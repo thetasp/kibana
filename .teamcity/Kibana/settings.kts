@@ -22,13 +22,53 @@ package Kibana
 import co.elastic.teamcity.common.TeamLevelProject
 import jetbrains.buildServer.configs.kotlin.v2019_2.project
 import jetbrains.buildServer.configs.kotlin.v2019_2.version
+import jetbrains.buildServer.configs.kotlin.v2019_2.projectFeatures.VersionedSettings
+import jetbrains.buildServer.configs.kotlin.v2019_2.projectFeatures.versionedSettings
+import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 
-version = "2020.1"
+version = "2020.2"
+
+val PRODUCTION_BRANCHES = listOf("master", "7.x")
+val SANDBOX_BRANCHES = listOf("master", "7.x")
 
 project(TeamLevelProject {
     id("Kibana")
     uuid = "4aef8f04-c7bc-464d-880d-b83545107160"
     name = "Kibana"
 
-    includeDevelopmentBranchProjects()
+    PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it, it) }
+    SANDBOX_BRANCHES.forEach { createKibanaSubProject("$it sandbox", it) }
 })
+
+fun TeamLevelProject.createKibanaSubProject(projectName: String, branch: String) {
+    subProject {
+        id("${this.id.toString()}_${branch.replace('.', '_')}")
+        name = projectName
+
+        val kotlinDslRoot = createVcsRoot(this.id.toString(), this.name, branch)
+        this.vcsRoot(kotlinDslRoot)
+
+        features {
+            versionedSettings {
+                rootExtId = kotlinDslRoot.id.toString()
+                mode = VersionedSettings.Mode.ENABLED
+                buildSettingsMode = VersionedSettings.BuildSettingsMode.PREFER_SETTINGS_FROM_VCS
+                settingsFormat = VersionedSettings.Format.KOTLIN
+                storeSecureParamsOutsideOfVcs = true
+
+                // Branch-specific projects use the "portable" DSL format
+                param("useRelativeIds", "true")
+            }
+        }
+    }
+}
+
+fun createVcsRoot(projectId: String, projectName: String, branchName: String): GitVcsRoot {
+    return GitVcsRoot {
+        id("${projectId}_${branchName.replace('.', '_')}")
+
+        name = "$projectName ($branchName)"
+        url = "https://github.com/elastic/${projectName.toLowerCase()}.git"
+        branch = "refs/heads/$branchName"
+    }
+}
