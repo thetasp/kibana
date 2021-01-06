@@ -29,7 +29,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 version = "2020.2"
 
 val PRODUCTION_BRANCHES = listOf("master", "7.x")
-val SANDBOX_BRANCHES = listOf("master", "7.x")
+val SANDBOX_BRANCHES = listOf("master_teamcity", "7.x_teamcity")
 
 project(TeamLevelProject {
     id("Kibana")
