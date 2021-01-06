@@ -58,6 +58,7 @@ fun TeamLevelProject.createKibanaSubProject(projectName: String, branch: String)
 
                 // Branch-specific projects use the "portable" DSL format
                 param("useRelativeIds", "true")
+                param("projectBranch", branch)
             }
         }
     }
