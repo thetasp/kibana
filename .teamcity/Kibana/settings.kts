@@ -36,16 +36,16 @@ project(TeamLevelProject {
     uuid = "4aef8f04-c7bc-464d-880d-b83545107160"
     name = "Kibana"
 
-    PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it, it) }
-    SANDBOX_BRANCHES.forEach { createKibanaSubProject("$it / sandbox", it) }
+    PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it) }
+    SANDBOX_BRANCHES.forEach { createKibanaSubProject(it) }
 })
 
-fun TeamLevelProject.createKibanaSubProject(projectName: String, branch: String) {
+fun TeamLevelProject.createKibanaSubProject(branch: String) {
     val project = this
 
     subProject {
         id("${project.id.toString()}_${branch.replace('.', '_')}")
-        name = projectName
+        name = branch
 
         val kotlinDslRoot = createVcsRoot(project.id.toString(), this.name, branch)
         this.vcsRoot(kotlinDslRoot)
