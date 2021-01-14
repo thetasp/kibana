@@ -20,6 +20,7 @@
 package Kibana
 
 import co.elastic.teamcity.common.TeamLevelProject
+import jetbrains.buildServer.configs.kotlin.v2019_2.DslContext
 import jetbrains.buildServer.configs.kotlin.v2019_2.project
 import jetbrains.buildServer.configs.kotlin.v2019_2.version
 import jetbrains.buildServer.configs.kotlin.v2019_2.projectFeatures.VersionedSettings
@@ -28,11 +29,12 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 
 version = "2020.2"
 
-val PRODUCTION_BRANCHES = listOf<String>(
-//    "master",
-//    "7.x",
-//    "7.11"
+val PRODUCTION_BRANCHES = listOf(
+    "master",
+    "7.x",
+    "7.11"
 )
+
 val SANDBOX_BRANCHES = listOf(
     "master_teamcity",
     "7.x_teamcity"
@@ -43,7 +45,6 @@ project(TeamLevelProject {
     uuid = "4aef8f04-c7bc-464d-880d-b83545107160"
     name = "Kibana"
 
-    PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it) }
     SANDBOX_BRANCHES.forEach { createKibanaSubProject(it) }
 })
 
