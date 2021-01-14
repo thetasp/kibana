@@ -29,7 +29,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 version = "2020.2"
 
 val PRODUCTION_BRANCHES = listOf<String>(
-//    "master",
+    "master"
 //    "7.x",
 //    "7.11"
 )
@@ -44,7 +44,6 @@ project(TeamLevelProject {
     name = "Kibana"
 
     PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it) }
-    SANDBOX_BRANCHES.forEach { createKibanaSubProject(it) }
 })
 
 fun TeamLevelProject.createKibanaSubProject(branch: String) {
