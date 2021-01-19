@@ -38,7 +38,7 @@ val SANDBOX_BRANCHES = listOf(
     "7.x_teamcity"
 )
 
-project(TeamLevelProject {
+project(TeamLevelProject(false) {
     id("Kibana")
     uuid = "4aef8f04-c7bc-464d-880d-b83545107160"
     name = "Kibana"
