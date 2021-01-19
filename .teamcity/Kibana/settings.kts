@@ -43,6 +43,16 @@ project(TeamLevelProject(false) {
     uuid = "4aef8f04-c7bc-464d-880d-b83545107160"
     name = "Kibana"
 
+    features {
+        versionedSettings {
+            mode = VersionedSettings.Mode.ENABLED
+            buildSettingsMode = VersionedSettings.BuildSettingsMode.PREFER_SETTINGS_FROM_VCS
+            rootExtId = "Root_KibanaTeamCityConfig"
+            settingsFormat = VersionedSettings.Format.KOTLIN
+            storeSecureParamsOutsideOfVcs = true
+        }
+    }
+
     PRODUCTION_BRANCHES.forEach { createKibanaSubProject(it) }
 })
 
