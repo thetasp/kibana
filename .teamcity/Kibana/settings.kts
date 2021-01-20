@@ -59,11 +59,12 @@ project(TeamLevelProject(false) {
 fun TeamLevelProject.createKibanaSubProject(branch: String) {
     val project = this
 
+    val kotlinDslRoot = createVcsRoot(project.id.toString(), branch)
+
     subProject {
         id("${project.id.toString()}_${branch.replace('.', '_')}")
         name = branch
 
-        val kotlinDslRoot = createVcsRoot(project.id.toString(), this.name, branch)
         this.vcsRoot(kotlinDslRoot)
 
         features {
@@ -82,11 +83,11 @@ fun TeamLevelProject.createKibanaSubProject(branch: String) {
     }
 }
 
-fun createVcsRoot(projectId: String, projectName: String, branchName: String): GitVcsRoot {
+fun createVcsRoot(projectId: String, branchName: String): GitVcsRoot {
     return GitVcsRoot {
         id("${projectId}_${branchName.replace('.', '_')}")
 
-        name = "$projectName / ($branchName)"
+        name = "kibana / ($branchName)"
         url = "https://github.com/elastic/kibana.git"
         branch = "refs/heads/$branchName"
     }
