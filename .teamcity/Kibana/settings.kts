@@ -37,7 +37,8 @@ val PRODUCTION_BRANCHES = listOf(
 
 val SANDBOX_BRANCHES = listOf(
     "master_teamcity",
-    "7.x_teamcity"
+    "7.x_teamcity",
+    "teamcity_brianseeders"
 )
 
 project(TeamLevelProject {
