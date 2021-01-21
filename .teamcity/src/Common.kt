@@ -4,7 +4,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.DslContext
 const val ENABLE_REPORTING = false
 
 // If set to false, jobs with triggers (scheduled, on commit, etc) will be paused
-const val ENABLE_TRIGGERS = true
+const val ENABLE_TRIGGERS = false
 
 fun getProjectBranch(): String {
   return DslContext.projectName
