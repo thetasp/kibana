@@ -21,7 +21,7 @@ object KibanaTemplate : Template({
   vcs {
     root(Kibana)
 
-    checkoutDir = "kibana"
+//    checkoutDir = "kibana"
 //    checkoutDir = "/dev/shm/%system.teamcity.buildType.id%/%system.build.number%/kibana"
     checkoutDir = "/dev/shm/workspace/kibana"
   }
