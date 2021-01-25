@@ -8,7 +8,7 @@ val StandardAgents = sizes.map { size -> size to GoogleCloudAgent {
   sourceImageFamily = "elastic-kibana-ci-ubuntu-1804-lts"
   agentPrefix = "kibana-standard-$size-"
   machineType = "n2-standard-$size"
-  diskSizeGb = 75
+  diskSizeGb = 500
   diskType = GoogleCloudAgentDiskType.SSD
   maxInstances = 750
 } }.toMap()
